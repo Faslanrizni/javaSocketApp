@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -18,6 +20,22 @@ public class Server {
 }
 
 class Handler implements Runnable{
+
+    private BufferedReader bufferedReader;
+    private PrintWriter printWriter;
+    private String  clientName;
+    private Socket socket;
+
+    public Handler(Socket socket){
+        this.socket = socket;
+    }
+
+    public String getClientName(){
+        return clientName;
+    }
+    public void sendMessage(String message){
+        printWriter.println(message);
+    }
 
     @Override
     public void run() {
