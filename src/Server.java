@@ -19,6 +19,11 @@ public class Server {
            Socket socket =  serverSocket.accept();
             System.out.println("client connected "+ socket.getInetAddress().getAddress());
 
+            Handler handler =  new Handler(socket);
+            clients.add(handler);
+
+            new Thread(handler).start();
+
         }
 
 
@@ -72,7 +77,7 @@ class Handler implements Runnable{
             bufferedReader.close();
             printWriter.close();
             socket.close();
-            
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
