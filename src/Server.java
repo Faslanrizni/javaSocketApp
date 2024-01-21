@@ -17,7 +17,7 @@ public class Server {
 
         while(true){
            Socket socket =  serverSocket.accept();
-            System.out.println("client connected "+ socket.getInetAddress().getAddress());
+            System.out.println("client connected : "+ socket.getInetAddress().getAddress());
 
             Handler handler =  new Handler(socket);
             clients.add(handler);

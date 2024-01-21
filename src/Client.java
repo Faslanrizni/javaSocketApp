@@ -15,7 +15,7 @@ public class Client{
 
             System.out.println(bufferedReader.readLine());
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter the name");
+            System.out.println("Enter the name: ");
             String clientName = scanner.nextLine();
             printWriter.println(clientName);
 
@@ -24,6 +24,11 @@ public class Client{
 
             Thread thread  = new Thread(new MessageHandler(socket));
             thread.start();
+
+            while (true){
+                String message = scanner.nextLine();
+                printWriter.println(message);
+            }
 
         }catch (IOException e){
             e.printStackTrace();
