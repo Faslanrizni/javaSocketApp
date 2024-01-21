@@ -10,7 +10,17 @@ public class Server {
         while(true){
            Socket socket =  serverSocket.accept();
             System.out.println("client connected "+ socket.getInetAddress().getAddress());
+
         }
+
+
+    }
+}
+
+class Handler implements Runnable{
+
+    @Override
+    public void run() {
 
     }
 }
