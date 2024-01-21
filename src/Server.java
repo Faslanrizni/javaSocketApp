@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -39,6 +40,16 @@ class Handler implements Runnable{
 
     @Override
     public void run() {
+        try {
+            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            printWriter = new PrintWriter(socket.getOutputStream(),true);
+            printWriter.println("hello whats your name");
+            clientName = bufferedReader.readLine();
 
+            printWriter.println(clientName + "Connected");
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
