@@ -4,8 +4,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Server {
+    private static List<Handler> clients = new ArrayList<>();
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(8000);//65535
         System.out.println("Server started on port on 8000");
@@ -17,6 +20,13 @@ public class Server {
         }
 
 
+    }
+    static  void broadCast(String message, Handler handler){
+        for (Handler client: clients){
+            if (client != handler){
+                client.sendMessage(handler.getClientName()+":"+message);
+            }
+        }
     }
 }
 
