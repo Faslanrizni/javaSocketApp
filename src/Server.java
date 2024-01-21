@@ -1,3 +1,5 @@
+import com.sun.xml.internal.ws.server.ServerRtException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -52,12 +54,25 @@ class Handler implements Runnable{
     public void run() {
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            printWriter = new PrintWriter(socket.getOutputStream(),true);
+            printWriter = new PrintWriter(socket.getOutputStream(), true);
             printWriter.println("hello whats your name");
             clientName = bufferedReader.readLine();
 
             printWriter.println(clientName + "Connected");
 
+
+
+            Server.broadCast("has joined",this);
+            String message;
+
+            while ((message = bufferedReader.readLine())!= null){
+                Server.broadCast(message,this);
+            }
+            Server.broadCast("user left...",this);
+            bufferedReader.close();
+            printWriter.close();
+            socket.close();
+            
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
